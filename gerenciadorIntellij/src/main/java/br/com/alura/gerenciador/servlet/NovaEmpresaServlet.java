@@ -1,5 +1,7 @@
 package br.com.alura.gerenciador.servlet;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +12,8 @@ import java.io.PrintWriter;
 @WebServlet(urlPatterns = "/NovaEmpresa")
 public class NovaEmpresaServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String nome = req.getParameter("nome");//pegando o parametro atravéz da url
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String nome = req.getParameter("nome");
 
         Empresa empresa = new Empresa();
         empresa.setNome(nome);
@@ -19,7 +21,9 @@ public class NovaEmpresaServlet extends HttpServlet {
         Banco banco = new Banco();
         banco.adiciona(empresa);
 
-        PrintWriter printWriter = resp.getWriter();
-        printWriter.println("<html><body>Empresa "+nome + " cadastrada com sucesso</body></html>");
+        //chamar o jsp
+        RequestDispatcher rd = req.getRequestDispatcher("/novaEmpresaCriada.jsp");
+        req.setAttribute("empresa",empresa);
+        rd.forward(req,resp);
     }
 }

@@ -1,7 +1,3 @@
-<%
-    String nomeEmpresa = "Alura";
-    System.out.println(nomeEmpresa);
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +7,7 @@
 </head>
 
 <body>
-<p>Empresa <%=nomeEmpresa %> cadastrada com sucesso</p>
+    Empresa ${empresa} cadastrada com sucesso
 </body>
 
 </html>
